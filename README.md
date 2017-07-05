@@ -2,6 +2,17 @@
 
 Simple Koa 2 setup with routes for pages and API
 
+## Prerequisites
+
+```
+brew cask install docker
+# then run docker app
+
+docker pull mongo
+docker run -p 27017:27017 mongo
+# Connect via mongodb://localhost:27017/
+```
+
 ## Running the Docker env
 
 ### Build your image
