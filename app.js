@@ -2,8 +2,8 @@ const Koa = require('koa')
 const KoaViews = require('koa-views')
 const KoaStatic = require('koa-static')
 
-const router = require('./routes')
-const api = require('./api')
+const appRouter = require('./routes')
+const apiRouter = require('./api')
 
 const app = new Koa()
 
@@ -24,8 +24,8 @@ app.use(async (ctx, next) => {
 })
 
 app
-  .use(router.routes())
-  .use(api.routes())
+  .use(appRouter.routes())
+  .use(apiRouter.routes())
   // .use(router.allowedMethods())
 
 app.listen(3000)
