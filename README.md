@@ -1,7 +1,6 @@
 # koa-test
 
-Koa 2 with routes for App and API running with docker-compose
-
+## Install
 ```
 brew cask install docker
 # then run Docker app
