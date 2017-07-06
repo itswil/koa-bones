@@ -29,4 +29,5 @@ app
   // .use(router.allowedMethods())
 
 app.listen(3000)
-console.log('Listening on http://localhost:3000')
+const serverMsg = process.env.NODE_ENV === 'development' ? 'Development' : 'Production'
+console.log(serverMsg + ' server: http://localhost:3000')
