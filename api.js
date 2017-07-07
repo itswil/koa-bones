@@ -2,11 +2,11 @@ const KoaRouter = require('koa-router')
 const KoaBody = require('koa-body')
 const mongoose = require('mongoose')
 
-const CONFIG = require('./config')
-
 const router = KoaRouter()
 const body = KoaBody()
-mongoose.connect(CONFIG.mongoPath + CONFIG.databaseName, { useMongoClient: true })
+const { DATABASE_NAME } = process.env
+
+mongoose.connect(`mongodb://mongodb:27017/${DATABASE_NAME}` , { useMongoClient: true })
 mongoose.Promise = global.Promise
 
 const userSchema = new mongoose.Schema({
