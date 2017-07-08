@@ -1,20 +1,17 @@
 const KoaRouter = require('koa-router')
 const KoaBody = require('koa-body')
-const mongoose = require('mongoose')
+const Sequelize = require('sequelize')
 
 const router = KoaRouter()
 const body = KoaBody()
-const { DATABASE_NAME } = process.env
+const { DB_NAME, DB_PORT } = process.env
 
-mongoose.connect(`mongodb://mongodb:27017/${DATABASE_NAME}` , { useMongoClient: true })
-mongoose.Promise = global.Promise
+const sequelize = new Sequelize(`mysql://user:password@db:${DB_PORT}/${DB_NAME}`);
 
-const userSchema = new mongoose.Schema({
-  name: String,
-  email: String
+const User = sequelize.define('user', {
+  name: { type: Sequelize.STRING },
+  email: { type: Sequelize.STRING },
 })
-
-const User = mongoose.model('User', userSchema)
 
 router
   .get('/api/employees', async (ctx, next) => {
@@ -27,13 +24,10 @@ router
     ctx.body = response
   })
   .get('/api/dbsave', async (ctx, next) => {
-    const user = new User({
-      name: 'John',
-      email: 'john@example.com'
-    })
+    await sequelize.sync()
+    const user = await User.create({ name: 'John', email: 'john@example.com' })
 
-    await user.save()
-    ctx.body = 'OK'
+    ctx.body = `${user.name} (${user.email}) has been saved to the database`
   })
 
 module.exports = router
