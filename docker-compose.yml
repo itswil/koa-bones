@@ -1,6 +1,6 @@
 version: '3'
 services:
-  website:
+  web:
     build: .
     env_file: .env
     ports:
@@ -9,15 +9,14 @@ services:
       - .:/usr/src/app
       - /usr/src/app/node_modules
     links:
-      - mongodb
+      - db
 
-  mongodb:
-    image: mongo
+  db:
+    image: mysql
     environment:
-      - MONGO_DATA_DIR=/data/db
-      - MONGO_LOG_DIR=/dev/null
-    volumes:
-      - ./data/db:/data/db
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
     ports:
-        - '27017:27017'
-    command: mongod --smallfiles --logpath=/dev/null # --quiet
+      - '${DB_PORT}:3306'
