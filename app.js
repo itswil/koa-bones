@@ -2,11 +2,12 @@ const Koa = require('koa')
 const KoaViews = require('koa-views')
 const KoaStatic = require('koa-static')
 
-const appRouter = require('./routes')
+const appRouter = require('./urls')
 const apiRouter = require('./api')
 
 const app = new Koa()
 const { NODE_ENV } = process.env
+let serverMsg
 
 app.use(KoaStatic('static'))
 app.use(KoaViews(__dirname, { map: { html: 'nunjucks' }} ))
@@ -30,5 +31,5 @@ app
   // .use(router.allowedMethods())
 
 app.listen(3000)
-const serverMsg = NODE_ENV === 'development' ? 'Development' : 'Production'
+serverMsg = NODE_ENV === 'development' ? 'Development' : 'Production'
 console.log(serverMsg + ' server: http://localhost:3000')
