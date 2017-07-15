@@ -2,6 +2,7 @@ const Koa = require('koa')
 const KoaViews = require('koa-views')
 const KoaStatic = require('koa-static')
 
+const { seq } = require('./db')
 const appRouter = require('./urls')
 const apiRouter = require('./api')
 
@@ -32,4 +33,4 @@ app
 
 app.listen(3000)
 serverMsg = NODE_ENV === 'development' ? 'Development' : 'Production'
-console.log(serverMsg + ' server: http://localhost:3000')
+console.log(`****** ${serverMsg} server: http://localhost:3000`)

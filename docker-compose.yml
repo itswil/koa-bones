@@ -3,12 +3,15 @@ services:
   web:
     build: .
     env_file: .env
+    command: [sh, -c, "node dbSetup & npm start"]
     ports:
       - '3000:3000'
     volumes:
       - .:/usr/src/app
       - /usr/src/app/node_modules
     links:
+      - db
+    depends_on:
       - db
 
   db:
