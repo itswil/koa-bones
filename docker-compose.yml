@@ -3,7 +3,7 @@ services:
   web:
     build: .
     env_file: .env
-    command: [sh, -c, "node dbSetup & npm start"]
+    command: [sh, -c, "node setup-script & npm start"]
     ports:
       - '3000:3000'
     volumes:
